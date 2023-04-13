@@ -41,6 +41,10 @@ void GameManager::Menu() {
 	}
 	if (pressed1)
 		currentScene = Scene::GAMEPLAY;
+
+	else if (pressed2)
+		currentScene = Scene::HIGHSCORE;
+
 	else
 		isPlaying = false;
 }
@@ -73,17 +77,15 @@ void GameManager::Gameplay() {
 			}
 		}
 
-		ball->Render();
-
 		Sleep(sleepTime); 
 		system("cls");
 	}
-	
+	ball->Render();
 }
 
 
 
-void GameManager::InitGameplay(int width, int height, Pad** p, Ball** b, std::vector<Wall>& w, std::vector<Brick>& brick) {
+void GameManager::InitGameplay(int width, int height, Pad** p, Ball** b, std::vector<Wall>& w, std::vector<Brick>& bricks) {
 	
 	*p = new Pad(Vector2(width / 2, height / 2 + height / 4), 3);
 
@@ -98,13 +100,30 @@ void GameManager::InitGameplay(int width, int height, Pad** p, Ball** b, std::ve
 			w.push_back(Wall(WallType::VERTICAL, Vector2(0 + j * (width - 1), i + 1)));
 		}
 	}
+
+	w.push_back(Wall(WallType::CORNER, Vector2(0, height - 1)));
+	for (int i = 0; i < width; i++)
+	
+		w.push_back(Wall(WallType::HORIZONTAL, Vector2(i, height - 1)));
+	
+	w.push_back(Wall(WallType::CORNER, Vector2(width - 1, height - 1)));
+
 	for (int i = 1; i <= 4; i++)
 	{
 		for (int j = 1; j < width - 1; j++)
 		{
-			brick.push_back(Brick(Vector2(j, i), 1));
+			bricks.push_back(Brick(Vector2(j, i), 1));
 		}
 	}
+
+	for (int i = 0; i <= 4; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			bricks.push_back(Brick(Vector2(j + width, i + height), 1));
+		}
+	}
+
 	*b = new Ball(Vector2(width / 2, height / 2), Vector2(0,1), 1);
 }
 

@@ -2,6 +2,8 @@
 #include "Vector2.h"
 #include "ConsoleControl.h"
 
+
+
 class Brick {
 private: 
 	Vector2 position;

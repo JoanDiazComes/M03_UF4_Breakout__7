@@ -1,6 +1,6 @@
 #include "Ball.h"
 
-void Ball::Update(std::vector<Wall> walls, std::vector<Brick> bricks[], Pad pads[]) {
+void Ball::Update(std::vector<Wall> walls, std::vector<Brick> bricks, Pad pads[]) {
 	
 	Vector2 targetPos = position + direction;
 
